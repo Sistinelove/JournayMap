@@ -21,4 +21,36 @@ $block: '.actions-dropdown';
 
     &__item3 {
     }
+
+    &__modal-content-delete {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        padding: 20px;
+        flex-direction: column;
+
+        &__modal-actions-delete {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    }
+
+    &__modal-content-view {
+        display: flex;
+        padding: 20px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    &__modal-body-view {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }
