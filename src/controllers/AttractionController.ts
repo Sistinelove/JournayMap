@@ -15,3 +15,11 @@ export const getAttractions = async (
 
     return {data, total};
 };
+
+export const deleteAttraction = async (id: number): Promise<void> => {
+    const response = await fetch(`http://localhost:3001/attractions/${id}`, {method: 'DELETE'});
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+};

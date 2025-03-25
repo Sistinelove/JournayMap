@@ -2,8 +2,13 @@ import {useAppContext} from '@/context/useContext';
 import {columns} from '../const';
 import {ActionsDropdown} from '@/components/ListAction/ActionDropdown';
 import {useMemo} from 'react';
+import {Attraction} from '@/types/AttractionTypes';
 
-export const useTableColumns = () => {
+interface TableColumn {
+    handleDeleteAttachment: (id: number) => void;
+}
+
+export const useTableColumns = ({handleDeleteAttachment}: TableColumn) => {
     const {isAdmin} = useAppContext();
 
     return useMemo(() => {
@@ -14,7 +19,9 @@ export const useTableColumns = () => {
                 id: 'actions',
                 name: 'Действия',
                 sticky: 'right',
-                template: () => <ActionsDropdown />,
+                template: (item: Attraction) => (
+                    <ActionsDropdown item={item} onDelete={handleDeleteAttachment} />
+                ),
             });
         }
 

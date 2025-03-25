@@ -1,5 +1,5 @@
 export interface Attraction {
-    id: string;
+    id: number;
     name: string;
     description: string;
     rating: number;
