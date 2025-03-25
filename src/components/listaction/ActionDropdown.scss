@@ -1,0 +1,24 @@
+$block: '.actions-dropdown';
+
+#{$block} {
+    &__main-button {
+        &:hover {
+            background: var(--g-color-private-brand-300-solid);
+        }
+    }
+
+    &__item1:hover {
+        background-color: var(--g-color-private-brand-300-solid);
+    }
+
+    &__item1:hover {
+        background: var(--g-color-private-brand-300-solid);
+    }
+
+    &__item2:hover {
+        background: var(--g-color-private-brand-300-solid);
+    }
+
+    &__item3 {
+    }
+}

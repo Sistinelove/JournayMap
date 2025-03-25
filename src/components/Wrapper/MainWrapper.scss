@@ -1,0 +1,31 @@
+$block: '.wrapper';
+
+#{$block} {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    font-family: var(--g-text-body-1-font);
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &-title {
+        font-size: 24px;
+    }
+
+    &__pagination {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--g-color-base-float);
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: var(--g-fixed-shadow-modal);
+    }
+}
