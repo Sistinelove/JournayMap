@@ -18,4 +18,5 @@ export interface Attraction {
 export interface CustomModalProps extends ModalProps {
     item: Attraction;
     onConfirm?: () => void;
+    onOpenChange: (open: boolean) => void;
 }

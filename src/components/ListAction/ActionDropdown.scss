@@ -53,4 +53,11 @@ $block: '.actions-dropdown';
         align-items: flex-start;
         gap: 10px;
     }
+
+    &__modal-actions-delete {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 30px;
+    }
 }

@@ -20,7 +20,7 @@ export const EditModal = ({
                 <TextInput value={item.photo} label="Фото:" />
             </div>
             <div className={b('modal-actions-edit')}>
-                <Button view="normal" onClick={() => onOpenChange}>
+                <Button view="normal" onClick={() => onOpenChange(false)}>
                     Закрыть
                 </Button>
                 <Button view="outlined-success" onClick={onConfirm}>

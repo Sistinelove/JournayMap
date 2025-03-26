@@ -17,7 +17,7 @@ export const DeleteModal = ({
             <div className={b('modal-actions-delete')}>
                 <Button
                     view="normal"
-                    onClick={() => onOpenChange}
+                    onClick={() => onOpenChange(false)}
                     className={b('modal-cancel-delete')}
                 >
                     Отменить

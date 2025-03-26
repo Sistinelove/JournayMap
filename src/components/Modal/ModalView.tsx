@@ -14,7 +14,7 @@ export const ViewModal = ({open, onOpenChange, item}: CustomModalProps) => (
                 <UIText>Рейтинг: {item.rating}</UIText>
                 <UIText>Фото: {item.photo}</UIText>
             </div>
-            <Button view="normal" onClick={() => onOpenChange}>
+            <Button view="normal" onClick={() => onOpenChange(false)}>
                 Закрыть
             </Button>
         </div>
