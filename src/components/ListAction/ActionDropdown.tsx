@@ -1,10 +1,13 @@
 import {BarsDescendingAlignRight} from '@gravity-ui/icons';
-import {Button, DropdownMenu, Modal, TextInput, Text as UIText} from '@gravity-ui/uikit';
+import {Button, DropdownMenu} from '@gravity-ui/uikit';
 import './ActionDropdown.scss';
 import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
-import {Attraction} from '@/types/AttractionTypes';
 import {useState} from 'react';
+import {ViewModal} from '@/components/Modal/ModalView';
+import {EditModal} from '@/components/Modal/ModalEdit';
+import {DeleteModal} from '@/components/Modal/ModalDelete';
+import {Attraction} from '@/types/types';
 
 const b = block('actions-dropdown');
 
@@ -63,61 +66,23 @@ export const ActionsDropdown = ({item, onDelete}: ActionsDropdownProps) => {
                             },
                         ]}
                     />
-                    <Modal open={isViewModalOpen}>
-                        <div className={b('modal-content-view')}>
-                            <UIText variant="header-2">Просмотр карточки</UIText>
-                            <div className={b('modal-body-view')}>
-                                <UIText>Название: {item.name}</UIText>
-                                <UIText>Описание: {item.description}</UIText>
-                                <UIText>Рейтинг: {item.rating}</UIText>
-                                <UIText>Фото: {item.photo}</UIText>
-                            </div>
-                            <Button view="normal" onClick={handleCloseViewModal}>
-                                Закрыть
-                            </Button>
-                        </div>
-                    </Modal>
-                    <Modal open={isDeleteModalOpen}>
-                        <div className={b('modal-content-delete')}>
-                            <UIText variant="header-2">Подтверждение удаления</UIText>
-                            <UIText>Вы уверены, что хотите удалить "{item.name}"?</UIText>
-                            <div className={b('modal-actions-delete')}>
-                                <Button
-                                    view="normal"
-                                    onClick={handleCloseDeleteModal}
-                                    className={b('modal-cancel-delete')}
-                                >
-                                    Отменить
-                                </Button>
-                                <Button
-                                    view="action"
-                                    onClick={handleConfirmDelete}
-                                    className={b('modal-confirm')}
-                                >
-                                    Удалить
-                                </Button>
-                            </div>
-                        </div>
-                    </Modal>
-                    <Modal open={isEditModalOpen}>
-                        <div className={b('modal-content-edit')}>
-                            <UIText variant="header-2">Редактирование карточки</UIText>
-                            <div className={b('modal-body-edit')}>
-                                <TextInput value={item.name} label="Название:" />
-                                <TextInput value={item.description} label="Описание:" />
-                                <TextInput value={String(item.rating)} label="Рейтинг:" />
-                                <TextInput value={item.photo} label="Фото:" />
-                            </div>
-                            <div className={b('modal-actions-edit')}>
-                                <Button view="normal" onClick={handleCloseEditModal}>
-                                    Закрыть
-                                </Button>
-                                <Button view="action" onClick={handleConfirmEdit}>
-                                    Сохранить изменения
-                                </Button>
-                            </div>
-                        </div>
-                    </Modal>
+                    <ViewModal
+                        open={isViewModalOpen}
+                        onOpenChange={handleCloseViewModal}
+                        item={item}
+                    />
+                    <DeleteModal
+                        open={isDeleteModalOpen}
+                        onOpenChange={handleCloseDeleteModal}
+                        onConfirm={handleConfirmDelete}
+                        item={item}
+                    />
+                    <EditModal
+                        open={isEditModalOpen}
+                        onOpenChange={handleCloseEditModal}
+                        onConfirm={handleConfirmEdit}
+                        item={item}
+                    />
                 </>
             )}
         </div>

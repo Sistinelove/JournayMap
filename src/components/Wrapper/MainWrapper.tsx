@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
 import {Pagination, Switch, Table} from '@gravity-ui/uikit';
 import './MainWrapper.scss';
-import {Attraction} from '@/types/AttractionTypes';
+
 import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
 import {useTableColumns} from '@/TableColumns';
 import {deleteAttraction, getAttractions} from '@/controllers/AttractionController';
+import {Attraction} from '@/types/types';
 
 const PAGE_SIZE = 20;
 const b = block('wrapper');

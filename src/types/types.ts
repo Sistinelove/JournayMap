@@ -1,3 +1,5 @@
+import {ModalProps} from '@gravity-ui/uikit';
+
 export interface Attraction {
     id: number;
     name: string;
@@ -11,4 +13,9 @@ export interface Attraction {
     };
     status: 'planned' | 'visited';
     dateAdded: string;
+}
+
+export interface CustomModalProps extends ModalProps {
+    item: Attraction;
+    onConfirm?: () => void;
 }
