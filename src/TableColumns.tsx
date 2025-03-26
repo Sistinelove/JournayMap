@@ -14,16 +14,17 @@ export const useTableColumns = ({handleDeleteAttachment}: TableColumn) => {
     return useMemo(() => {
         const modifiedColumns = [...columns];
 
-        if (isAdmin) {
-            modifiedColumns.push({
-                id: 'actions',
-                name: 'Действия',
-                sticky: 'right',
-                template: (item: Attraction) => (
-                    <ActionsDropdown item={item} onDelete={handleDeleteAttachment} />
-                ),
-            });
+        if (!isAdmin) {
+            return modifiedColumns;
         }
+        modifiedColumns.push({
+            id: 'actions',
+            name: 'Действия',
+            sticky: 'right',
+            template: (item: Attraction) => (
+                <ActionsDropdown item={item} onDelete={handleDeleteAttachment} />
+            ),
+        });
 
         return modifiedColumns;
     }, [isAdmin]);

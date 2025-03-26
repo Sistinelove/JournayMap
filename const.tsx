@@ -1,4 +1,4 @@
-import {Attraction} from '@/types/AttractionTypes';
+import {Attraction} from '@/types/types';
 
 interface TableColumns {
     id: string;
