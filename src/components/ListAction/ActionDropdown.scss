@@ -47,17 +47,20 @@ $block: '.actions-dropdown';
         align-items: center;
     }
 
-    &__modal-body-view {
+    &__modal-content-edit {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        padding: 30px;
         gap: 10px;
     }
 
-    &__modal-actions-delete {
+    &__modal-body-edit {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        flex: 1 1 auto;
         gap: 10px;
-        padding: 30px;
+        width: 100%;
+        min-width: 700px;
     }
 }
