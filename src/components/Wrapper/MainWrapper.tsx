@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Pagination, Switch, Table, useToaster} from '@gravity-ui/uikit';
 import './MainWrapper.scss';
 
@@ -6,15 +6,10 @@ import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
 import {useTableColumns} from '@/TableColumns';
 import {deleteAttraction, getAttractions} from '@/controllers/AttractionController';
-import {Attraction} from '@/types/types';
+import {AppProps, Attraction} from '@/types/types';
 
 const PAGE_SIZE = 20;
 const b = block('wrapper');
-
-export type AppProps = {
-    title?: string;
-    children?: ReactNode;
-};
 
 export const MainWrapper: React.FC<AppProps> = ({title}) => {
     const [attractions, setAttractions] = useState<Attraction[]>([]);

@@ -1,4 +1,4 @@
-import {Attraction, UpdateAttraction} from '@/types/types';
+import {Attraction, CreateAttraction, UpdateAttraction} from '@/types/types';
 
 export const getAttractions = async (
     page: number,
@@ -45,4 +45,23 @@ export const getAttachmentsCount = async (): Promise<number> => {
     }
     const data = await response.json();
     return data.length;
+};
+
+export const createAttraction = async (newAttraction: CreateAttraction): Promise<Attraction> => {
+    const response = await fetch(`http://localhost:3001/attractions`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            ...newAttraction,
+            dateAdded: new Date().toISOString(),
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
 };

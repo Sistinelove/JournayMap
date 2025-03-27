@@ -4,13 +4,9 @@ import {ActionsDropdown} from '@/components/ListAction/ActionDropdown';
 import {useMemo} from 'react';
 import {Attraction} from '@/types/AttractionTypes';
 import {columns} from '@/columns';
+import {TableColumnProps} from '@/types/types';
 
-interface TableColumn {
-    handleDeleteAttachment: (id: number) => void;
-    handleEditSuccess: () => void;
-}
-
-export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: TableColumn) => {
+export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: TableColumnProps) => {
     const {isAdmin} = useAppContext();
 
     return useMemo(() => {

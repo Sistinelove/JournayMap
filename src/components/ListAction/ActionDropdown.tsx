@@ -7,16 +7,10 @@ import {useState} from 'react';
 import {ViewModal} from '@/components/Modal/ModalView';
 import {EditModal} from '@/components/Modal/ModalEdit';
 import {DeleteModal} from '@/components/Modal/ModalDelete';
-import {Attraction, UpdateAttraction} from '@/types/types';
+import {ActionsDropdownProps, UpdateAttraction} from '@/types/types';
 import {editAttraction} from '@/controllers/AttractionController';
 
 const b = block('actions-dropdown');
-
-interface ActionsDropdownProps {
-    item: Attraction;
-    onDelete: (id: number) => void;
-    onEditSuccess: () => void;
-}
 
 export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdownProps) => {
     const {isAdmin} = useAppContext();
