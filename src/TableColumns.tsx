@@ -6,9 +6,10 @@ import {Attraction} from '@/types/AttractionTypes';
 
 interface TableColumn {
     handleDeleteAttachment: (id: number) => void;
+    handleEditSuccess: () => void;
 }
 
-export const useTableColumns = ({handleDeleteAttachment}: TableColumn) => {
+export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: TableColumn) => {
     const {isAdmin} = useAppContext();
 
     return useMemo(() => {
@@ -22,10 +23,14 @@ export const useTableColumns = ({handleDeleteAttachment}: TableColumn) => {
             name: 'Действия',
             sticky: 'right',
             template: (item: Attraction) => (
-                <ActionsDropdown item={item} onDelete={handleDeleteAttachment} />
+                <ActionsDropdown
+                    item={item}
+                    onDelete={handleDeleteAttachment}
+                    onEditSuccess={handleEditSuccess}
+                />
             ),
         });
 
         return modifiedColumns;
-    }, [isAdmin]);
+    }, [isAdmin, handleEditSuccess]);
 };

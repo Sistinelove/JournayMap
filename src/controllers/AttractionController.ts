@@ -1,4 +1,4 @@
-import {Attraction} from '@/types/types';
+import {Attraction, UpdateAttraction} from '@/types/types';
 
 export const getAttractions = async (
     page: number,
@@ -18,6 +18,20 @@ export const getAttractions = async (
 
 export const deleteAttraction = async (id: number): Promise<void> => {
     const response = await fetch(`http://localhost:3001/attractions/${id}`, {method: 'DELETE'});
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+};
+
+export const editAttraction = async (updateAttraction: UpdateAttraction): Promise<void> => {
+    const response = await fetch(`http://localhost:3001/attractions/${updateAttraction.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateAttraction),
+    });
 
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

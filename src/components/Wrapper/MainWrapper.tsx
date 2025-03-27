@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Pagination, Switch, Table} from '@gravity-ui/uikit';
+import {ReactNode, useEffect, useState} from 'react';
+import {Pagination, Switch, Table, useToaster} from '@gravity-ui/uikit';
 import './MainWrapper.scss';
 
 import block from 'bem-cn-lite';
@@ -13,7 +13,7 @@ const b = block('wrapper');
 
 export type AppProps = {
     title?: string;
-    children?: React.ReactNode;
+    children?: ReactNode;
 };
 
 export const MainWrapper: React.FC<AppProps> = ({title}) => {
@@ -21,6 +21,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
     const {isAdmin, toggleAdmin} = useAppContext();
+    const {add} = useToaster();
 
     useEffect(() => {
         fetchAttractions(currentPage);
@@ -47,11 +48,32 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             setAttractions(data);
             setTotalItems(total);
         } catch (error) {
-            console.error('Ошибка удаления:', error);
+            add({
+                name: 'edit-error',
+                title: 'Ошибка',
+                content: 'Ошибка удаления',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
         }
     };
 
-    const tableColumns = useTableColumns({handleDeleteAttachment});
+    const handleEditSuccess = async () => {
+        try {
+            const {data, total} = await getAttractions(currentPage, PAGE_SIZE);
+            setAttractions(data);
+            setTotalItems(total);
+        } catch (error) {
+            add({
+                name: 'edit-error',
+                title: 'Ошибка',
+                content: 'Ошибка обновления данных',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
+        }
+    };
+    const tableColumns = useTableColumns({handleDeleteAttachment, handleEditSuccess});
 
     return (
         <div className={b()}>

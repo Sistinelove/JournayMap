@@ -7,16 +7,18 @@ import {useState} from 'react';
 import {ViewModal} from '@/components/Modal/ModalView';
 import {EditModal} from '@/components/Modal/ModalEdit';
 import {DeleteModal} from '@/components/Modal/ModalDelete';
-import {Attraction} from '@/types/types';
+import {Attraction, UpdateAttraction} from '@/types/types';
+import {editAttraction} from '@/controllers/AttractionController';
 
 const b = block('actions-dropdown');
 
 interface ActionsDropdownProps {
     item: Attraction;
     onDelete: (id: number) => void;
+    onEditSuccess: () => void;
 }
 
-export const ActionsDropdown = ({item, onDelete}: ActionsDropdownProps) => {
+export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdownProps) => {
     const {isAdmin} = useAppContext();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -35,7 +37,15 @@ export const ActionsDropdown = ({item, onDelete}: ActionsDropdownProps) => {
     const handleEditClick = () => setIsEditModalOpen(true);
     const handleCloseEditModal = () => setIsEditModalOpen(false);
 
-    const handleConfirmEdit = () => setIsEditModalOpen(true);
+    const handleConfirmEdit = async (updateAttraction: UpdateAttraction) => {
+        try {
+            await editAttraction(updateAttraction);
+            onEditSuccess();
+            setIsEditModalOpen(false);
+        } catch (error) {
+            console.error('Ошибка редактирования:', error);
+        }
+    };
 
     return (
         <div className={b()}>

@@ -20,3 +20,15 @@ export interface CustomModalProps extends ModalProps {
     onConfirm?: () => void;
     onOpenChange: (open: boolean) => void;
 }
+
+export type EditModalProps = CustomModalProps & {
+    onConfirm: (updatedItem: UpdateAttraction) => Promise<void>;
+};
+
+export interface UpdateAttraction {
+    id: number;
+    name: string;
+    description: string;
+    rating: number;
+    photo: string;
+}
