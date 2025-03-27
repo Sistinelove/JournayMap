@@ -42,7 +42,6 @@ export interface ActionsDropdownProps {
     item: Attraction;
     onDelete: (id: number) => void;
     onEditSuccess: () => void;
-    onCreateSuccess: () => void;
 }
 
 export interface TableColumnProps {

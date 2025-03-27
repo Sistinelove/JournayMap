@@ -1,12 +1,17 @@
 import {useEffect, useState} from 'react';
-import {Pagination, Switch, Table, useToaster} from '@gravity-ui/uikit';
+import {Button, Pagination, Switch, Table, useToaster} from '@gravity-ui/uikit';
 import './MainWrapper.scss';
 
 import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
 import {useTableColumns} from '@/TableColumns';
-import {deleteAttraction, getAttractions} from '@/controllers/AttractionController';
-import {AppProps, Attraction} from '@/types/types';
+import {
+    createAttraction,
+    deleteAttraction,
+    getAttractions,
+} from '@/controllers/AttractionController';
+import {AppProps, Attraction, CreateAttraction} from '@/types/types';
+import {CreateModal} from '@/components/Modal/ModalCreate';
 
 const PAGE_SIZE = 20;
 const b = block('wrapper');
@@ -15,6 +20,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
     const [attractions, setAttractions] = useState<Attraction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const {isAdmin, toggleAdmin, countAttachments} = useAppContext();
     const {add} = useToaster();
 
@@ -53,6 +59,22 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
         }
     };
 
+    const handleCreateSuccess = async (newAttraction: CreateAttraction) => {
+        try {
+            await createAttraction(newAttraction);
+            await fetchAttractions(currentPage);
+            setIsCreateModalOpen(false);
+        } catch (error) {
+            add({
+                name: 'create-error',
+                title: 'Ошибка',
+                content: 'Ошибка создания',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
+        }
+    };
+
     const handleEditSuccess = async () => {
         try {
             const {data, total} = await getAttractions(currentPage, PAGE_SIZE);
@@ -74,10 +96,14 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
         <div className={b()}>
             <div className={b('header')}>
                 <h1 className={b('title')}>{title}</h1>
-                <h2>Счетчик достопримечательностей: {countAttachments}</h2>
-                <Switch checked={isAdmin} onChange={toggleAdmin}>
-                    Режим администратора
-                </Switch>
+
+                <h3>Счетчик достопримечательностей: {countAttachments}</h3>
+                <div className={b('actions')}>
+                    <Button onClick={() => setIsCreateModalOpen(true)}>Создать заявку</Button>
+                    <Switch checked={isAdmin} onChange={toggleAdmin}>
+                        Режим администратора
+                    </Switch>
+                </div>
             </div>
             <div className={b('attractions-list')}>
                 <Table data={attractions} columns={tableColumns} />
@@ -90,6 +116,11 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
                     />
                 )}
             </div>
+            <CreateModal
+                open={isCreateModalOpen}
+                onOpenChange={setIsCreateModalOpen}
+                onConfirm={handleCreateSuccess}
+            />
         </div>
     );
 };

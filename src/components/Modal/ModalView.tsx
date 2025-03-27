@@ -1,10 +1,11 @@
 import {Button, Modal, Text as UIText} from '@gravity-ui/uikit';
-import {CustomModalProps} from '@/types/types';
+
 import block from 'bem-cn-lite';
+import {EditModalProps} from '@/types/types';
 
 const b = block('actions-dropdown');
 
-export const ViewModal = ({open, onOpenChange, item}: CustomModalProps) => (
+export const ViewModal = ({open, onOpenChange, item}: EditModalProps) => (
     <Modal open={open}>
         <div className={b('modal-content-view')}>
             <UIText variant="header-2">Просмотр карточки</UIText>
