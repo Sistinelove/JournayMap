@@ -1,4 +1,5 @@
 import {Attraction} from '@/types/types';
+import {Button} from '@gravity-ui/uikit';
 
 interface TableColumns {
     id: string;
@@ -52,11 +53,24 @@ export const columns: TableColumns[] = [
     {
         id: 'mapLink',
         name: 'Ссылка на достопримечательность',
-        template: (item: Attraction) =>
-            `https://www.google.com/maps/search/?api=1&query=${item.coordinates.lat},${item.coordinates.lng}`,
+        template: (item: Attraction) => (
+            <Button href={getLinkMap(item.coordinates, 'google')}>Ссылка на google map</Button>
+        ),
     },
     {
         id: 'status',
         name: 'Статус',
     },
 ];
+
+const getLinkMap = (
+    coordinates: Attraction['coordinates'],
+    mapService: 'google' | 'yandex' = 'google',
+): string => {
+    if (mapService === 'google') {
+        return `https://www.google.com/maps/search/?api=1&query=${coordinates.lat},${coordinates.lng}`;
+    } else if (mapService === 'yandex') {
+        return `https://yandex.ru/maps/?pt=${coordinates.lng},${coordinates.lat}&z=12&l=map`;
+    }
+    return '';
+};
