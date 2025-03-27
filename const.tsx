@@ -4,7 +4,7 @@ interface TableColumns {
     id: string;
     name: string;
     template?: (item: Attraction) => JSX.Element | string;
-    sticky?: 'left' | 'right';
+    sticky?: 'start' | 'end';
 }
 
 export const columns: TableColumns[] = [

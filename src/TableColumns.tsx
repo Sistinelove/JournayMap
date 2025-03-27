@@ -21,7 +21,7 @@ export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: Tab
         modifiedColumns.push({
             id: 'actions',
             name: 'Действия',
-            sticky: 'right',
+            sticky: 'end',
             template: (item: Attraction) => (
                 <ActionsDropdown
                     item={item}
