@@ -20,7 +20,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
     const [attractions, setAttractions] = useState<Attraction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
-    const {isAdmin, toggleAdmin} = useAppContext();
+    const {isAdmin, toggleAdmin, countAttachments} = useAppContext();
     const {add} = useToaster();
 
     useEffect(() => {
@@ -79,6 +79,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
         <div className={b()}>
             <div className={b('header')}>
                 <h1 className={b('title')}>{title}</h1>
+                <h2>Счетчик достопримечательностей: {countAttachments}</h2>
                 <Switch checked={isAdmin} onChange={toggleAdmin}>
                     Режим администратора
                 </Switch>

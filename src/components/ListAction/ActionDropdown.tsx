@@ -1,5 +1,5 @@
 import {BarsDescendingAlignRight} from '@gravity-ui/icons';
-import {Button, DropdownMenu} from '@gravity-ui/uikit';
+import {Button, DropdownMenu, useToaster} from '@gravity-ui/uikit';
 import './ActionDropdown.scss';
 import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
@@ -23,6 +23,7 @@ export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdown
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const {add} = useToaster();
 
     const handleDeleteClick = () => setIsDeleteModalOpen(true);
     const handleConfirmDelete = () => {
@@ -43,7 +44,13 @@ export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdown
             onEditSuccess();
             setIsEditModalOpen(false);
         } catch (error) {
-            console.error('Ошибка редактирования:', error);
+            add({
+                name: 'edit-error',
+                title: 'Ошибка',
+                content: 'Ошибка редактирования',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
         }
     };
 

@@ -37,3 +37,12 @@ export const editAttraction = async (updateAttraction: UpdateAttraction): Promis
         throw new Error(`HTTP error! status: ${response.status}`);
     }
 };
+
+export const getAttachmentsCount = async (): Promise<number> => {
+    const response = await fetch(`http://localhost:3001/attractions`);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.length;
+};

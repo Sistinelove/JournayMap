@@ -1,8 +1,9 @@
 import {useAppContext} from '@/context/useContext';
-import {columns} from '../const';
+
 import {ActionsDropdown} from '@/components/ListAction/ActionDropdown';
 import {useMemo} from 'react';
 import {Attraction} from '@/types/AttractionTypes';
+import {columns} from '@/columns';
 
 interface TableColumn {
     handleDeleteAttachment: (id: number) => void;
