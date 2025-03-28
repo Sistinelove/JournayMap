@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Button, Pagination, Switch, Table, useToaster} from '@gravity-ui/uikit';
 import './MainWrapper.scss';
-
 import block from 'bem-cn-lite';
 import {useAppContext} from '@/context/useContext';
 import {useTableColumns} from '@/TableColumns';
@@ -21,7 +20,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const {isAdmin, toggleAdmin, countAttachments} = useAppContext();
+    const {isAdmin, toggleAdmin, countAttachments, updateCountAttachments} = useAppContext();
     const {add} = useToaster();
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             setTotalItems(total);
         } catch (error) {
             add({
-                name: 'edit-error',
+                name: 'fetch-error',
                 title: 'Ошибка',
                 content: 'Ошибка получения данных',
                 theme: 'danger',
@@ -54,9 +53,10 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             const {data, total} = await getAttractions(currentPage, PAGE_SIZE);
             setAttractions(data);
             setTotalItems(total);
+            await updateCountAttachments();
         } catch (error) {
             add({
-                name: 'edit-error',
+                name: 'delete-error',
                 title: 'Ошибка',
                 content: 'Ошибка удаления',
                 theme: 'danger',
@@ -70,6 +70,7 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             await createAttraction(newAttraction);
             await fetchAttractions(currentPage);
             setIsCreateModalOpen(false);
+            await updateCountAttachments();
         } catch (error) {
             add({
                 name: 'create-error',
@@ -123,7 +124,6 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
         <div className={b()}>
             <div className={b('header')}>
                 <h1 className={b('title')}>{title}</h1>
-
                 <h3>Счетчик достопримечательностей: {countAttachments}</h3>
                 <div className={b('actions')}>
                     <Button onClick={() => setIsCreateModalOpen(true)}>Создать заявку</Button>
