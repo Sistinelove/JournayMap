@@ -48,7 +48,7 @@ export const columns: TableColumns[] = [
     {
         id: 'coordinates',
         name: 'Координаты',
-        template: (item: Attraction) => `${item.coordinates.lat}, ${item.coordinates.lng}`,
+        template: (item: Attraction) => `${item?.coordinates?.lat}, ${item?.coordinates?.lng}`,
     },
     {
         id: 'mapLink',
@@ -68,9 +68,9 @@ const getLinkMap = (
     mapService: 'google' | 'yandex' = 'google',
 ): string => {
     if (mapService === 'google') {
-        return `https://www.google.com/maps/search/?api=1&query=${coordinates.lat},${coordinates.lng}`;
+        return `https://www.google.com/maps/search/?api=1&query=${coordinates?.lat},${coordinates?.lng}`;
     } else if (mapService === 'yandex') {
-        return `https://yandex.ru/maps/?pt=${coordinates.lng},${coordinates.lat}&z=12&l=map`;
+        return `https://yandex.ru/maps/?pt=${coordinates?.lng},${coordinates?.lat}&z=12&l=map`;
     }
     return '';
 };

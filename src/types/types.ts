@@ -12,7 +12,7 @@ export interface Attraction {
         lat: number;
         lng: number;
     };
-    status: 'В планах' | 'Осмотрена';
+    status: 'В планах' | 'Просмотрено';
     dateAdded: string;
 }
 
@@ -20,9 +20,23 @@ export interface BaseModalProps extends ModalProps {
     onOpenChange: (open: boolean) => void;
 }
 
+export interface CustomDeleteProps extends ModalProps {
+    item: Attraction;
+    onConfirm?: () => void;
+}
+
 export interface EditModalProps extends BaseModalProps {
     item: Attraction;
     onConfirm: (data: UpdateAttraction) => Promise<void>;
+}
+
+export interface ViewModalProps extends BaseModalProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    item: Attraction;
+    onConfirm?: (updateAttraction: UpdateAttraction) => Promise<void>;
+    onCancel?: () => void;
+    onViewSuccess: () => void;
 }
 
 export interface CreateModalProps extends BaseModalProps {
@@ -42,9 +56,11 @@ export interface ActionsDropdownProps {
     item: Attraction;
     onDelete: (id: number) => void;
     onEditSuccess: () => void;
+    onViewSuccess: () => void;
 }
 
 export interface TableColumnProps {
     handleDeleteAttachment: (id: number) => void;
     handleEditSuccess: () => void;
+    handleViewSuccess: () => void;
 }

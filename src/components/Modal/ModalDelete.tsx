@@ -1,6 +1,7 @@
 import {Button, Modal, Text as UIText} from '@gravity-ui/uikit';
-import {CustomModalProps} from '@/types/types';
+
 import block from 'bem-cn-lite';
+import {CustomDeleteProps} from '@/types/types';
 
 const b = block('actions-dropdown');
 
@@ -9,7 +10,7 @@ export const DeleteModal = ({
     onOpenChange,
     onConfirm,
     item,
-}: CustomModalProps & {onConfirm: () => void}) => (
+}: CustomDeleteProps & {onConfirm: () => void}) => (
     <Modal open={open}>
         <div className={b('modal-content-delete')}>
             <UIText variant="header-2">Подтверждение удаления</UIText>

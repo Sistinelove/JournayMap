@@ -6,7 +6,11 @@ import {Attraction} from '@/types/AttractionTypes';
 import {columns} from '@/columns';
 import {TableColumnProps} from '@/types/types';
 
-export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: TableColumnProps) => {
+export const useTableColumns = ({
+    handleDeleteAttachment,
+    handleEditSuccess,
+    handleViewSuccess,
+}: TableColumnProps) => {
     const {isAdmin} = useAppContext();
 
     return useMemo(() => {
@@ -24,6 +28,7 @@ export const useTableColumns = ({handleDeleteAttachment, handleEditSuccess}: Tab
                     item={item}
                     onDelete={handleDeleteAttachment}
                     onEditSuccess={handleEditSuccess}
+                    onViewSuccess={handleViewSuccess}
                 />
             ),
         });

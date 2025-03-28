@@ -12,7 +12,12 @@ import {editAttraction} from '@/controllers/AttractionController';
 
 const b = block('actions-dropdown');
 
-export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdownProps) => {
+export const ActionsDropdown = ({
+    item,
+    onDelete,
+    onEditSuccess,
+    onViewSuccess,
+}: ActionsDropdownProps) => {
     const {isAdmin} = useAppContext();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -81,6 +86,7 @@ export const ActionsDropdown = ({item, onDelete, onEditSuccess}: ActionsDropdown
                         open={isViewModalOpen}
                         onOpenChange={handleCloseViewModal}
                         item={item}
+                        onViewSuccess={onViewSuccess}
                     />
                     <DeleteModal
                         open={isDeleteModalOpen}

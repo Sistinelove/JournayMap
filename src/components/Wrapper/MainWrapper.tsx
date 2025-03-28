@@ -34,7 +34,13 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             setAttractions(data);
             setTotalItems(total);
         } catch (error) {
-            console.error('Ошибка получения данных:', error);
+            add({
+                name: 'edit-error',
+                title: 'Ошибка',
+                content: 'Ошибка получения данных',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
         }
     };
 
@@ -90,7 +96,28 @@ export const MainWrapper: React.FC<AppProps> = ({title}) => {
             });
         }
     };
-    const tableColumns = useTableColumns({handleDeleteAttachment, handleEditSuccess});
+
+    const handleViewSuccess = async () => {
+        try {
+            const {data, total} = await getAttractions(currentPage, PAGE_SIZE);
+            setAttractions(data);
+            setTotalItems(total);
+        } catch (error) {
+            add({
+                name: 'view-error',
+                title: 'Ошибка',
+                content: 'Ошибка обновления данных',
+                theme: 'danger',
+                autoHiding: 3000,
+            });
+        }
+    };
+
+    const tableColumns = useTableColumns({
+        handleDeleteAttachment,
+        handleEditSuccess,
+        handleViewSuccess,
+    });
 
     return (
         <div className={b()}>
